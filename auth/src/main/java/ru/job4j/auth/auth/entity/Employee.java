@@ -1,5 +1,8 @@
 package ru.job4j.auth.auth.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.HashSet;
@@ -17,7 +20,8 @@ public class Employee {
     private String surname;
     private String UNN;
     private Timestamp hiringDate;
-    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY,  cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Set<Person> persons = new HashSet<>();
 
     public Employee() {

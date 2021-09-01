@@ -1,5 +1,7 @@
 package ru.job4j.auth.auth.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -10,12 +12,12 @@ public class Person {
     private int id;
     private String login;
     private String password;
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY,
+            cascade=CascadeType.ALL)
     @JoinColumn(name = "employee_id")
+    @JsonBackReference
     private Employee employee;
 
-    public Person() {
-    }
 
     public static Person of(String test, String test1) {
         Person person = new Person();
