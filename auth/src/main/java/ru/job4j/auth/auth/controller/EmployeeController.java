@@ -22,6 +22,8 @@ public class EmployeeController {
     private RestTemplate rest;
 
     private static final String API_PERSON = "http://localhost:8080/person/";
+    private static final String API_UPDATE_PERSON = "http://localhost:8080/person/";
+    private static final String API_DELETE_PERSON = "http://localhost:8080/person/{id}";
     private final EmployeeRepository employeeRepository;
 
     public EmployeeController(EmployeeRepository employeeRepository) {
@@ -50,5 +52,17 @@ public class EmployeeController {
                 rsl,
                 HttpStatus.CREATED
         );
+    }
+
+    @PutMapping("/account")
+    public ResponseEntity<Void> update(@RequestBody Person person) {
+        rest.put(API_UPDATE_PERSON, person);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable int id) {
+        rest.delete(API_DELETE_PERSON, id);
+        return ResponseEntity.ok().build();
     }
 }
